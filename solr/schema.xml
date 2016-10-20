@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<schema name="taxonomy" version="1.5">
+  <fields>
+      <field name="taxonomy_id" type="int" indexed="true" stored="true"/>
+      <field name="scientific_name" type="string" indexed="true" stored="true" docValues="true"/>
+      <field name="scientific_lineage" type="string" indexed="true" stored="true" docValues="true"/>
+      <field name="rank" type="string" indexed="true" stored="true"/>
+      <field name="kingdom" type="string" indexed="true" stored="true"/>
+      <field name="domain" type="string" indexed="true" stored="true" docValues="true" multiValued="true"/>
+      <field name="aliases" type="string" indexed="true" stored="true" docValues="true" multiValued="true"/>
+      <field name="genetic_code" type="int" indexed="true" stored="false" multiValued="true"/>
+      <field name="parent_taxon_ref" type="text_general" indexed="true" stored="true" multiValued="false"/>
+      <field name="embl_code" type="string" indexed="true" stored="false" multiValued="true"/>
+      <field name="division_id" type="int" indexed="true" stored="true"/> 
+      <field name="inherited_div_flag" type="int" indexed="true" stored="true"/>
+      <field name="inherited_GC_flag" type="int" indexed="true" stored="true"/>
+      <field name="GenBank_hidden_flag" type="int" indexed="true" stored="true"/>
+      <field name="hidden_subtree_flag" type="int" indexed="true" stored="true"/>
+      <field name="mitochondrial_genetic_code" type="int" indexed="true" stored="true"/>
+      <field name="inherited_MGC_flag" type="int" indexed="true" stored="true"/>
+      <field name="comments" type="string" indexed="true" stored="true"/>
+      <field name="parent_taxon_id" type="int" indexed="true" stored="true"/>
+  </fields>
+
+  <uniqueKey>taxonomy_id</uniqueKey>
+
+  <solrQueryParser defaultOperator="AND"/>
+
+  <copyField source="taxonomy_id" dest="text"/>
+  <copyField source="scientific_name" dest="text"/>
+  <copyField source="scientific_lineage" dest="text"/>
+  <copyField source="rank" dest="text"/>
+  <copyField source="kingdom" dest="text"/>
+  <copyField source="domain" dest="text"/>
+  <copyField source="aliases" dest="text"/>
+  <copyField source="genetic_code" dest="text"/>
+  <copyField source="parent_taxon_ref" dest="text"/>
+  <copyField source="embl_code" dest="text"/>
+  <copyField source="division_id" dest="text"/>
+  <copyField source="comments" dest="text"/>
+
+  <fieldType name="booleans" class="solr.BoolField" sortMissingLast="true" multiValued="true"/>
+  <fieldType name="tdates" class="solr.TrieDateField" precisionStep="6" positionIncrementGap="0" multiValued="true"/>
+  <fieldType name="tints" class="solr.TrieIntField" precisionStep="8" positionIncrementGap="0" multiValued="true"/>
+  <fieldType name="tfloats" class="solr.TrieFloatField" precisionStep="8" positionIncrementGap="0" multiValued="true"/>
+  <fieldType name="tlongs" class="solr.TrieLongField" precisionStep="8" positionIncrementGap="0" multiValued="true"/>
+  <fieldType name="tdoubles" class="solr.TrieDoubleField" precisionStep="8" positionIncrementGap="0" multiValued="true"/>
+
+  <dynamicField name="*_flag" type="int" indexed="true" stored="true"/>
+  <dynamicField name="*_id" type="int" indexed="true" stored="true"/>
+  <dynamicField name="*_txt" type="text_general" indexed="true" stored="true"/>
+
+  <xi:include href="schema_types.xml" xmlns:xi="http://www.w3.org/2001/XInclude">
+     <xi:fallback></xi:fallback>
+  </xi:include>
+
+</schema>
+
